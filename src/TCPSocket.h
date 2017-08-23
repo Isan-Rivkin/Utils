@@ -46,7 +46,7 @@ namespace networkingLab
 		 * Ctor to create client TCP socket and connect it to the remote peer in given ip+port
 		 */
 		TCPSocket(const std::string & pPeerIP, size_t pPort);
-	private:
+	protected:
 		/**
 		 *3rd ctor for the client handler, filedescriptor->socket_fd, port ip and shit of both peers
 		 */

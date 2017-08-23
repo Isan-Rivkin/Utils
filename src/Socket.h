@@ -54,6 +54,10 @@ public:
 	virtual bool connect(std::string& ip,size_t port);
 	Socket(StreamType type);
 	virtual ~Socket();
+	/**
+	 * yom shlishi eli meteor 9.30 our offices.
+	 * if wants to join.
+	 */
 	// temp ctor - for tcp client and handler
 	Socket(int port,Descriptor mLocal );
 	int getSocketFileDescriptor();

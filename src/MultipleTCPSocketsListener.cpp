@@ -81,6 +81,7 @@ TCPSocket* MultipleTCPSocketsListener::pullOut(TCPSocket* socket)
 				mSockets_list.erase(begin);
 				return ret;
 			}
+			begin++;
 		}
 		if(!found)
 		{
@@ -111,7 +112,6 @@ TCPSocket* MultipleTCPSocketsListener::listenToSocket()
 		FD_SET((*it_begin)->getSocketFileDescriptor(),&fd);
 		it_begin++;
 	}
-
 	int result = select(highestFDNum+1, &fd,NULL,NULL,NULL);
 	//TODO: check the returned value from the select to find the socket that is ready
 	if(result)
@@ -131,8 +131,52 @@ TCPSocket* MultipleTCPSocketsListener::listenToSocket()
 	return NULL;
 }
 
+TCPSocket* MultipleTCPSocketsListener::find(string ip, size_t port)
+{
+	vector<TCPSocket*>::iterator it,begin,end;
+	begin = mSockets_list.begin();
+	end = mSockets_list.end();
+	int index =0;
+	while(begin != end)
+	{
+		 TCPSocket * s = *(begin);
+		 sockaddr_in desc = s->getRemoteDescriptor();
+		 size_t tempPort = htons(desc.sin_port);
+		 if(tempPort == port)
+		 {
+			 return s;
+		 }
+		begin++;
+		index++;
+	}
+	return NULL;
+}
 
+TCPSocket* MultipleTCPSocketsListener::find(TCPSocket* socket)
+{
+	vector<TCPSocket*>::iterator it,begin,end;
+			begin = mSockets_list.begin();
+			end = mSockets_list.end();
+			bool found = false;
+			while(begin != end)
+			{
+				if(*(begin) == socket)
+				{
+					TCPSocket * ret = *begin;
+					return ret;
+				}
+			}
+			if(!found)
+			{
+				cout <<" [MiltipleListener:] couldn't find requested socket! " << endl;
+			}
+		return NULL;
+}
+
+vector<TCPSocket*> MultipleTCPSocketsListener::getAll()
+{
+	return mSockets_list;
+}
 
 } /* namespace networkingLab */
-
 

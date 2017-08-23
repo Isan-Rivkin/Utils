@@ -42,11 +42,16 @@ public:
 	 */
 	TCPSocket* listenToSocket();
 	/**
-	 * find a socket from the list
+	 * find a socket from the list and delete
 	 */
 	TCPSocket* pullOut(const string & ip,size_t port);
 	TCPSocket* pullOut(TCPSocket * socket);
-
+	/**
+	 * find a socket - not delete
+	 */
+	TCPSocket* find(string ip,size_t port);
+	TCPSocket* find(TCPSocket * socket);
+	vector<TCPSocket*> getAll();
 };
 
 } /* namespace networkingLab */

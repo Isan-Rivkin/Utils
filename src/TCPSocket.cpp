@@ -53,7 +53,6 @@ namespace networkingLab
 	 */
 	TCPSocket* TCPSocket::accept()
 	{
-
 		socklen_t len = sizeof(mRemote);
 		mCommunicationSockTCP = ::accept(socket_fd,(struct sockaddr *)&mRemote,&len);
 		if(mCommunicationSockTCP<0)
