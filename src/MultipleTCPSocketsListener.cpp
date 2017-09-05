@@ -113,7 +113,6 @@ TCPSocket* MultipleTCPSocketsListener::listenToSocket()
 		it_begin++;
 	}
 	int result = select(highestFDNum+1, &fd,NULL,NULL,NULL);
-	//TODO: check the returned value from the select to find the socket that is ready
 	if(result)
 	{
 		it_begin = mSockets_list.begin();
